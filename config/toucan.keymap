@@ -50,6 +50,17 @@
             tapping-term-ms = <200>;
             bindings = <&mo>, <&tmux_prefix>;
         };
+
+        // Single tap = left click, double tap (within tapping-term-ms) = right
+        // click. If the resolved tap is held instead of released, tap-dance
+        // forwards a genuine held press of that binding, so holding after
+        // either click keeps the mouse button down for drag-and-drop.
+        mouse_click_dance: mouse_click_dance {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&mkp LCLK>, <&mkp RCLK>;
+        };
     };
 
     combos {
@@ -70,7 +81,7 @@
                 &kp ESC   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
                 &kp TAB   &hml LGUI A &hml LALT S &hml LSHFT D &hml LCTRL F &kp G   &kp H &hmr RCTRL J &hmr RSHFT K &hmr RALT L &hmr RGUI SEMI &kp SQT
                 &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                                &lt NAV RET &mo NUMPAD &tmux_fkeys FKEYS 0   &none &mo MEDIA &lt SYM SPACE
+                                &tmux_fkeys FKEYS 0 &mo NUMPAD &mouse_click_dance   &lt NAV RET &mo MEDIA &lt SYM SPACE
             >;
         };
 
