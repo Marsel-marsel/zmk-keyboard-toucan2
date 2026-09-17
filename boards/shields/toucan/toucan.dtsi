@@ -110,12 +110,15 @@
             track-remainders;
         };
 
-        is_touching_processor:is_touching_processor {
+        // Activates the MOU layer (layer index 6 in toucan.keymap) while a
+        // finger is touching the trackpad. If you ever renumber layers in
+        // toucan.keymap, update the index below to match MOU's new position.
+        is_touching_processor: is_touching_processor {
             compatible = "zmk,input-processor-behaviors";
             #input-processor-cells = <0>;
 
             codes = <INPUT_BTN_TOUCH>;      // watch for the 'touch' pseudo button
-            bindings  = <&mo 4>;            // Activate Layer 4 while held &mo 4
+            bindings = <&mo 6>;             // Activate the MOU layer while held
         };
 
         swipe_button_mapper: swipe_button_mapper {

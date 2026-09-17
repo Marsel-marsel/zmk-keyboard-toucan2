@@ -10,6 +10,7 @@
 #define NUMPAD 3
 #define FKEYS  4
 #define MEDIA  5
+#define MOU    6
 
 / {
     behaviors {
@@ -51,16 +52,6 @@
             bindings = <&mo>, <&tmux_prefix>;
         };
 
-        // Single tap = left click, double tap (within tapping-term-ms) = right
-        // click. If the resolved tap is held instead of released, tap-dance
-        // forwards a genuine held press of that binding, so holding after
-        // either click keeps the mouse button down for drag-and-drop.
-        mouse_click_dance: mouse_click_dance {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&mkp LCLK>, <&mkp RCLK>;
-        };
     };
 
     combos {
@@ -81,7 +72,7 @@
                 &kp ESC   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
                 &kp TAB   &hml LGUI A &hml LALT S &hml LSHFT D &hml LCTRL F &kp G   &kp H &hmr RCTRL J &hmr RSHFT K &hmr RALT L &hmr RGUI SEMI &kp SQT
                 &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                                &lt NAV RET &mo NUMPAD &mouse_click_dance   &tmux_fkeys FKEYS 0 &mo MEDIA &lt SYM SPACE
+                                &lt NAV RET &mo NUMPAD &none   &tmux_fkeys FKEYS 0 &mo MEDIA &lt SYM SPACE
             >;
         };
 
@@ -135,8 +126,14 @@
             >;
         };
 
-        extra_3 {
-                status = "reserved";
+        mou {
+            display-name = "MOU";
+            bindings = <
+                &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+                                &mkp MCLK &mkp LCLK &mkp RCLK   &mkp LCLK &mkp RCLK &mkp MCLK
+            >;
         };
     };
 };
