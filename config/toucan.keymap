@@ -61,6 +61,15 @@
             key-positions = <0 11>;
             bindings = <&studio_unlock>;
         };
+        // Hard escape from a stuck MOU layer (e.g. if the trackpad's touch
+        // release event gets lost over the split link). Works from any
+        // layer since combos resolve before layer bindings, and &to force-
+        // clears every active layer on press alone.
+        combo_mou_escape {
+            timeout-ms = <50>;
+            key-positions = <12 23>;
+            bindings = <&to BASE>;
+        };
     };
 
     keymap {
