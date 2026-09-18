@@ -55,10 +55,12 @@
         rst-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
         rdy-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
 
-        enable-power-management;
+        // enable-power-management; // disabled: keeps the chip always in Active mode (no idle/LP1/LP2 transitions).
+                                     // trades battery life for zero wake latency and removes the touch-release
+                                     // race that stranded the MOU layer (see git log df581d0/ccb416d).
         // idle-sleep; // provides maximal power savings but when ZMK is idle (i.e. you haven't used keyboard in 30secs) the touchpad will not work.  not recommended.
         // timeout-lp1 = <3>; // 60s timeout before entering lp2 state (20 secs per unit) (default was 20s)
-        report-rate-lp2 = <640>; // reverted to test whether this was tied to the stuck-MOU-layer bug (default: 640ms/55uA)
+        // report-rate-lp2 = <640>; // inert while power management is disabled above; left as a record of the fixed value
         scroll-angle = <30>; // The default angle (about 47 deg) is too big on toucan2 I think
         sensitivity = <100>;
         scroll-sensitivity = <100>;
