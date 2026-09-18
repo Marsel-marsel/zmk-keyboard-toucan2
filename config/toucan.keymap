@@ -65,9 +65,11 @@
         // release event gets lost over the split link). Works from any
         // layer since combos resolve before layer bindings, and &to force-
         // clears every active layer on press alone.
+        // One-handed on purpose: Q + T, both on the left hand, so it's
+        // reachable even while the right hand is occupied on the trackpad.
         combo_mou_escape {
-            timeout-ms = <50>;
-            key-positions = <12 23>;
+            timeout-ms = <100>;
+            key-positions = <1 5>;
             bindings = <&to BASE>;
         };
     };
