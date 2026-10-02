@@ -44,6 +44,12 @@
             bindings = <&kp LC(B) &kp SPACE>;
         };
 
+        tmux_copy_mode: tmux_copy_mode {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(B) &kp LBKT>;
+        };
+
         tmux_fkeys: tmux_fkeys {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -83,7 +89,7 @@
                 &kp ESC   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
                 &kp TAB   &hml LGUI A &hml LALT S &hml LSHFT D &hml LCTRL F &kp G   &kp H &hmr RCTRL J &hmr RSHFT K &hmr RALT L &hmr RGUI SEMI &kp SQT
                 &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                                &lt NAV RET &mo NUMPAD &tmux_fkeys FKEYS 0   &none &mo MEDIA &lt SYM SPACE
+                                &mo NUMPAD &lt NAV RET &tmux_fkeys FKEYS 0   &tmux_copy_mode &lt SYM SPACE &mo MEDIA
             >;
         };
 
@@ -93,7 +99,7 @@
                 &trans &none &none &kp LBKT &kp RBKT &kp GRAVE   &none &kp LS(N7) &kp LS(N8) &kp LS(N9) &kp LS(N0) &trans
                 &none  &kp LS(MINUS) &kp BSLH &kp LS(LBKT) &kp LS(RBKT) &kp LS(BSLH)   &none &kp LS(N4) &kp LS(N5) &kp LS(N6) &kp BSLH &none
                 &none  &none &none &kp LS(N9) &kp LS(N0) &kp LS(GRAVE)   &none &kp LS(N1) &kp LS(N2) &kp LS(N3) &none &none
-                                &kp SPACE &none &none   &none &none &none
+                                &none &kp SPACE &none   &none &none &none
             >;
         };
 
