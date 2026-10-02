@@ -71,11 +71,12 @@
         // release event gets lost over the split link). Works from any
         // layer since combos resolve before layer bindings, and &to force-
         // clears every active layer on press alone.
-        // One-handed on purpose: Q + T, both on the left hand, so it's
-        // reachable even while the right hand is occupied on the trackpad.
+        // All 3 left thumb keys at once. Left hand on purpose: the trackpad
+        // and the stuck-release bug live on the right split, so the escape
+        // must not depend on any right-side key working.
         combo_mou_escape {
             timeout-ms = <100>;
-            key-positions = <1 5>;
+            key-positions = <36 37 38>;
             bindings = <&to BASE>;
         };
     };
@@ -119,7 +120,7 @@
                 &trans &none &none &none &none &none   &kp KP_PLUS &kp KP_N7 &kp KP_N8 &kp KP_N9 &kp DEL &trans
                 &none  &kp LGUI &kp LALT &kp LSHFT &kp LCTRL &none   &kp KP_MINUS &kp KP_N4 &kp KP_N5 &kp KP_N6 &kp LS(LBKT) &kp LS(RBKT)
                 &none  &none &none &none &none &none   &kp KP_EQUAL &kp KP_N1 &kp KP_N2 &kp KP_N3 &none &none
-                                &none &none &none   &none &kp KP_DOT &kp KP_N0
+                                &none &none &none   &none &kp KP_N0 &kp KP_DOT
             >;
         };
 
