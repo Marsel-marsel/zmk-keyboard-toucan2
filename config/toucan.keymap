@@ -53,7 +53,7 @@
         screenshot_enter: screenshot_enter {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp PSCRN &kp RET>;
+            bindings = <&kp PSCRN &mkp LCLK>;
         };
 
         tmux_fkeys: tmux_fkeys {
