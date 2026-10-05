@@ -50,6 +50,12 @@
             bindings = <&kp LC(B) &kp LBKT>;
         };
 
+        screenshot_enter: screenshot_enter {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp PSCRN &kp RET>;
+        };
+
         tmux_fkeys: tmux_fkeys {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -148,7 +154,7 @@
             display-name = "MOU";
             bindings = <
                 &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &kp PSCRN &kp PSCRN &trans   &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &screenshot_enter   &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
                                 &mkp MCLK &mkp LCLK &mkp RCLK   &mkp LCLK &mkp LCLK &mkp MCLK
             >;
