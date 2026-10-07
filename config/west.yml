@@ -12,7 +12,13 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-      revision: v0.3
+      # Pinned past v0.3 to pick up zmkfirmware/zmk#3110 (merged 2026-09-26,
+      # not yet in a tagged release): fixes a deadlock/dropped-notification
+      # bug in the split input-report path under bursty peripheral input
+      # (e.g. trackpad motion), which can strand a momentary layer activated
+      # by a lost touch-release event. See project memory for the Toucan2
+      # stuck-MOU-layer bug this targets.
+      revision: 5b51501fead672c41b5cfb396f3dafe0894bf4e9
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: v0.3
