@@ -11,6 +11,7 @@
 #define FKEYS  4
 #define MEDIA  5
 #define MOU    6
+#define MEC    7
 
 / {
     behaviors {
@@ -85,6 +86,12 @@
             key-positions = <36 37 38>;
             bindings = <&to BASE>;
         };
+        // All 3 right thumb keys at once toggles the MEC layer on/off.
+        combo_mec_toggle {
+            timeout-ms = <50>;
+            key-positions = <39 40 41>;
+            bindings = <&tog MEC>;
+        };
     };
 
     keymap {
@@ -157,6 +164,16 @@
                 &trans &trans &trans &trans &trans &screenshot   &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
                                 &mkp MCLK &mkp LCLK &mkp RCLK   &mkp LCLK &mkp LCLK &mkp MCLK
+            >;
+        };
+
+        mec {
+            display-name = "MECON";
+            bindings = <
+                &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
+                &trans &trans &trans &trans &trans &trans   &trans &kp C_MUTE &trans &trans &trans &trans
+                                &trans &trans &trans   &trans &trans &trans
             >;
         };
     };
