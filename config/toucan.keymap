@@ -57,6 +57,15 @@
             bindings = <&kp PSCRN>;
         };
 
+        // Tap does nothing, holding for 3 s runs &bt BT_CLR_ALL.
+        bt_clear_hold: bt_clear_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <3000>;
+            bindings = <&bt>, <&none>;
+        };
+
         tmux_fkeys: tmux_fkeys {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -69,10 +78,23 @@
 
     combos {
         compatible = "zmk,combos";
+        // ESC + BSPC: Studio unlock. Overlaps with combo_bt_clear_all below
+        // (ZMK supports this: the 4-key combo wins when all 4 keys land
+        // inside the timeout). Both timeouts are kept equal on purpose, so
+        // this one doesn't fire before the shifts have a chance to join.
         combo_studio_unlock {
-            timeout-ms = <50>;
+            timeout-ms = <100>;
             key-positions = <0 11>;
             bindings = <&studio_unlock>;
+        };
+        // ESC + BSPC + left SHIFT + right SHIFT (the four outer corners) on
+        // BASE, then HOLD for 3 s: clear all Bluetooth pairings. A shorter
+        // press does nothing (see bt_clear_hold).
+        combo_bt_clear_all {
+            timeout-ms = <100>;
+            key-positions = <0 11 24 35>;
+            layers = <BASE>;
+            bindings = <&bt_clear_hold BT_CLR_ALL 0>;
         };
         // Hard escape from a stuck MOU layer (e.g. if the trackpad's touch
         // release event gets lost over the split link). Works from any
@@ -170,9 +192,9 @@
         mec {
             display-name = "MECON";
             bindings = <
-                &none &none &none &none &none &none   &none &kp C_VOL_DN &none &kp C_VOL_UP &none &none
+                &none &none &none &none &none &none   &none &kp C_VOL_DN &kp C_VOL_UP &none &none &none
                 &none &none &none &none &none &none   &kp LEFT &kp DOWN &kp UP &kp RIGHT &none &none
-                &bt BT_CLR_ALL &none &none &none &none &none   &none &kp C_MUTE &none &none &none &none
+                &none &none &none &none &none &none   &none &kp C_MUTE &none &none &none &none
                                 &none &none &none   &none &none &none
             >;
         };
