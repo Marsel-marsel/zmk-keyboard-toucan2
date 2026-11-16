@@ -57,13 +57,39 @@
             bindings = <&kp PSCRN>;
         };
 
-        // Tap does nothing, holding for 3 s runs &bt BT_CLR_ALL.
+        // &bt takes 2 cells (BT_CLR and BT_CLR_ALL already expand to a command
+        // plus a 0), which doesn't fit a hold-tap parameter. So the commands
+        // are wrapped in parameterless macros and the hold-taps use those.
+        bt_clear_macro: bt_clear_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
+        };
+
+        bt_clear_all_macro: bt_clear_all_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR_ALL>;
+        };
+
+        // Tap does nothing, holding for 3 s clears the current BT profile.
+        // Use as: &bt_clear_hold 0 0
         bt_clear_hold: bt_clear_hold {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <3000>;
-            bindings = <&bt>, <&none>;
+            bindings = <&bt_clear_macro>, <&none>;
+        };
+
+        // Tap does nothing, holding for 3 s clears ALL BT profiles.
+        // Use as: &bt_clear_all_hold 0 0
+        bt_clear_all_hold: bt_clear_all_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <3000>;
+            bindings = <&bt_clear_all_macro>, <&none>;
         };
 
         tmux_fkeys: tmux_fkeys {
@@ -89,12 +115,12 @@
         };
         // ESC + BSPC + left SHIFT + right SHIFT (the four outer corners) on
         // BASE, then HOLD for 3 s: clear all Bluetooth pairings. A shorter
-        // press does nothing (see bt_clear_hold).
+        // press does nothing (see bt_clear_all_hold).
         combo_bt_clear_all {
             timeout-ms = <100>;
             key-positions = <0 11 24 35>;
             layers = <BASE>;
-            bindings = <&bt_clear_hold BT_CLR_ALL 0>;
+            bindings = <&bt_clear_all_hold 0 0>;
         };
         // Hard escape from a stuck MOU layer (e.g. if the trackpad's touch
         // release event gets lost over the split link). Works from any
@@ -193,7 +219,7 @@
             display-name = "MECON";
             bindings = <
                 &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none   &none &kp C_VOL_DN &kp C_VOL_UP &none &none &none
-                &none &none &bt_clear_hold BT_CLR 0 &none &none &none   &kp LEFT &kp DOWN &kp UP &kp RIGHT &none &none
+                &none &none &bt_clear_hold 0 0 &none &none &none   &kp LEFT &kp DOWN &kp UP &kp RIGHT &none &none
                 &none &none &none &none &none &none   &none &kp C_MUTE &none &none &none &none
                                 &none &none &none   &none &kp SPACE &none
             >;
